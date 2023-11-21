@@ -1,13 +1,16 @@
-import os
-import datetime
-from funcoes.verifSenha import senhaverificada
-from funcoes.logsData import verifLoginDatas, verifLoginUsers
-from funcoes.horarios import horariosPorUsuarios, horariosGerais
-from funcoes.usuariosAtivos import activeUsers
-from funcoes.backup import fazerBackup
-from funcoes.buscaData import buscaData
+from funcoes.logsData import verificar_login_datas, verificar_login_users
+from funcoes.horarios import horarios_por_usuarios, horarios_gerais
+from funcoes.verifSenha import verificar_senha, senha_verificada
+from funcoes.validacaoEscolha import escolha_valida
+from funcoes.usuariosAtivos import active_users
+from funcoes.buscaData import busca_data
+from funcoes.backup import fazer_backup
 from funcoes.historico import historico
-from funcoes.validacaoEscolha import escolhaValida
+
+import datetime
+import platform
+import time
+import os
 
 os.system('color a')
 os.system('cls')
@@ -33,73 +36,72 @@ def logo():
     [8] Realização de backup
     [9] Apagar o terminal """)
 
+def mensagem_com_delay(delay, msg):
+    print(f'\n{msg}...\n')
+    time.sleep(delay)
+
 logo()
 while True:
-    escolha = escolhaValida()
 
-    if escolha == 1:
-        print("\nVerificando login...\n")
-        result = verifLoginDatas()
-        msg = "[1] Verificacao de Datas de Login geral"
-        historico(msg, result)
+    escolhas_validas = range(1, (9)+1)
+    esc = escolha_valida(escolhas_validas)
+
+    if esc == 1:
+        mensagem_com_delay(1, "Verificando Logins")
+        result = verificar_login_datas()
+        historico("[1] Verificacão de Datas de Login (Geral)", result)
         
 
-    elif escolha == 2:
-        print("\nVerificando login...\n")
-        msg = "[2] Verificacao de Datas de Login por usuario"
-        result = verifLoginUsers()
-        historico(msg, result)
+    elif esc == 2:
+        mensagem_com_delay(1, "Verificando Logins")
+        result = verificar_login_users()
+        historico("[2] Verificacao de Datas de Login por Usuário", result)
 
 
-    elif escolha == 3:
-        print("\nVerificando senhas...\n")
-        result = senhaverificada()
-        msg = "[3] Verificacao de Senhas"
-        historico(msg, result)
+    elif esc == 3:
+        mensagem_com_delay(1, "Verificando Senhas")
+        result = senha_verificada()
+        historico("[3] Verificacão de Senhas", result)
 
 
-    elif escolha == 4:
-        print("\nVerificando horários...\n")
-        result = horariosPorUsuarios()
-        msg = "[4] Verificacao de tempo medio de Login (Por usuario)"
-        historico(msg, result)
+    elif esc == 4:
+        mensagem_com_delay(1, "Verificando Horários")
+        time.sleep(1.0)
+        result = horarios_por_usuarios()
+        historico("[4] Verificacao de tempo médio de Login (Por usuário)", result)
         
 
-    elif escolha == 5:
-        print("\nVerificando horários...\n")
-        result = horariosGerais()
-        msg = "[5] Verificacao de tempo medio de Login (Geral)"
-        historico(msg, result)
+    elif esc == 5:
+        mensagem_com_delay(1, "Verificando Horários")
+        result = horarios_gerais()
+        historico("[5] Verificacao de tempo médio de Login (Geral)", result)
 
 
-    elif escolha == 6:
-        print("Verificando usuários ativos...\n")
-        result = activeUsers()
-        msg = "[6] Verificacao de quantos usuarios estao ativos"
-        historico(msg, result)
+    elif esc == 6:
+        mensagem_com_delay(1, "Verificando Usuários Ativos")
+        result = active_users()
+        historico("[6] Verificacão de quantos usuários estão ativos", result)
 
-    elif escolha == 7:
-        print("\n")
-        result = buscaData()
-        msg = "[8] Filtrar busca por data"
-        historico(msg, result)
+    elif esc == 7:
+        mensagem_com_delay(0.5, "Filtrando")
+        result = busca_data()
+        historico("[8] Filtrar busca por data", result)
 
-    elif escolha == 8:
-        print("Fazendo o backup...\n")
-        result = fazerBackup()
-        msg = "[7] Realizacao de backup"
-        historico(msg, True)
+    elif esc == 8:
+        mensagem_com_delay(1, "Realizando Backup")
+        result = fazer_backup()
+        historico("[7] Realizacão de Backup", True)
 
-    elif escolha == 9:
-        os.system('cls')
-        msg = "[9] Terminal apagado"
-        historico(msg, True)
+    elif esc == 9:
+        sys = platform.system().lower()
+        if "linux" in sys or "darwin" in sys:
+            os.system('clear')
+        else:
+            os.system('cls')
+        historico("[9] Terminal Apagado", True)
         logo()
 
-
-    elif escolha is not 1 or 2 or 3 or 4 or 0:
-        print("\nEscolha uma opcao valida!")
-        msg = "Opcao invalida"
-        historico(msg, False)
+    elif esc not in escolhas_validas:
+        pass
 
 

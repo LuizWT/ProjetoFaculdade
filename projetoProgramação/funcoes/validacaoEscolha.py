@@ -1,9 +1,12 @@
-def escolhaValida():
+def escolha_valida(escolhas_validas):
+    
+    esc = escolhas_validas
+
     try:
         escolha = int(input("\nEscolha a função >> "))
-        if escolha < 1 or escolha > 9:
+        if escolha not in esc:
             raise ValueError
         return escolha
     except ValueError:
-        print("Por favor, insira um número válido de 1 a 9.")
-        return escolhaValida()
+        print(f"\nPor favor, insira um número válido de {min(esc)} a {max(esc)}.")
+        return escolha_valida(esc)

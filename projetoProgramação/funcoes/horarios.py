@@ -1,43 +1,42 @@
+from path import LOG_PATH as LOG
 from datetime import datetime
 
-tempoLogin = {} #armazenar os horarios do login
+tempo_login = {} # Armazenar os horarios do Login
 
-totalLogin = 0
-totUsuarios = 0
+total_login = 0
+total_usuarios = 0
 
-with open('log.txt', 'r') as arquivo: #formato r apenas para faer a varredura
+with open(LOG, 'r') as arquivo: # Formato 'r' (read) apenas para leitura
     for linha in arquivo:
         dados = linha.strip().split(',')
-        identUsers = dados[0]
-        horaLogin = datetime.strptime(dados[3], '%H:%M:%S')
-        horaLogout = datetime.strptime(dados[4], '%H:%M:%S')
+        identidade_usuarios = dados[0]
+        hora_login = datetime.strptime(dados[3], '%H:%M:%S')
+        hora_logout = datetime.strptime(dados[4], '%H:%M:%S')
         
-        Diflogin = horaLogout - horaLogin
+        diferenca_login = hora_logout - hora_login
         
-        if identUsers in tempoLogin: #atualiza o dicionário do inicio do script
-            tempoLogin[identUsers].append(Diflogin)
+        if identidade_usuarios in tempo_login: # Atualiza o dicionário do inicio do script
+            tempo_login[identidade_usuarios].append(diferenca_login)
         else:
-            tempoLogin[identUsers] = [Diflogin]
+            tempo_login[identidade_usuarios] = [diferenca_login]
         
-        totalLogin += Diflogin.total_seconds()
-        totUsuarios += 1
+        total_login += diferenca_login.total_seconds()
+        total_usuarios += 1
 
-TempoMedioUsers = {}
-for usuario, tempos in tempoLogin.items():
-    totalDeTempo = sum([tempo.total_seconds() for tempo in tempos]) #tempo médio de cada usuário
-    tempoMedio = totalDeTempo / len(tempos)
-    TempoMedioUsers[usuario] = tempoMedio
+tempo_medio_usuarios = {}
+for usuario, tempos in tempo_login.items():
+    tempo_total = sum([tempo.total_seconds() for tempo in tempos]) # Tempo médio de cada usuário
+    tempo_medio = tempo_total / len(tempos)
+    tempo_medio_usuarios[usuario] = tempo_medio
 
-tempoMedioGeral = totalLogin / totUsuarios #tempo médio geral
+tempo_medio_geral = total_login / total_usuarios # Tempo médio geral
 
-def horariosPorUsuarios():
-    for usuario, tempoMedio in TempoMedioUsers.items():
-        print(f"Tempo médio de login do usuário {usuario}: {tempoMedio} em segundos")
-        res = {usuario, tempoMedio}
+def horarios_por_usuarios():
+    for usuario, tempo_medio in tempo_medio_usuarios.items():
+        print(f"Tempo médio de login do usuário {usuario}: {tempo_medio} em segundos")
+        res = {usuario, tempo_medio}
         return res
         
-def horariosGerais():
-    print(f"\nTempo médio de login geral: {tempoMedioGeral} (em segundos)")
-    return tempoMedioGeral
-
-horariosGerais()
+def horarios_gerais():
+    print(f"Tempo médio de login geral: {tempo_medio_geral} (em segundos)")
+    return tempo_medio_geral

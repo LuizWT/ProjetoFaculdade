@@ -1,10 +1,12 @@
+from path import RECORD_PATH as RECORD
 import datetime
-def historico(logMsg, resultado=None):
+
+def historico(log_msg, resultado=None):
     data = datetime.datetime.now()
-    dataFormt = data.strftime("%d/%m/%Y")
-    horaFormt = data.strftime("%H:%M:%S")
+    data_fmt = data.strftime("%d/%m/%Y")
+    hora_fmt = data.strftime("%H:%M:%S")
     
-    log = f"{dataFormt}, {horaFormt}, {logMsg}, {resultado}\n"
+    log = f"{data_fmt}, {hora_fmt}, {log_msg}, {resultado}\n"
     
-    with open('historico.txt', 'a') as arq:
+    with open(RECORD, 'a') as arq:
         arq.write(log)

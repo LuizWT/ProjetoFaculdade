@@ -1,18 +1,21 @@
+from path import RECORD_PATH as RECORD
+
 import datetime
 import os
-def historico(logMsg, resultado=None):
+
+def historico(log_msg, resultado=None):
     data = datetime.datetime.now()
-    dataFormt = data.strftime("%d/%m/%y")
-    horaFormt = data.strftime("%H:%M:%S")
+    data_fmt = data.strftime("%d/%m/%y")
+    hora_fmt = data.strftime("%H:%M:%S")
     
-    log = f"{dataFormt}, {horaFormt}, {logMsg}, {resultado}\n"
+    log = f"{data_fmt}, {hora_fmt}, {log_msg}, {resultado}\n"
     
-    with open('historico.txt', 'a') as arq:
+    with open(RECORD, 'a') as arq:
         arq.write(log)
 
-def buscaData():
-    dataFiltro = input("Digite a data no formato DD/MM/YYYY: ")
-    buscaFiltro = input("""\033[91m
+def busca_data():
+    data_filtro = input("Digite a data no formato DD/MM/YYYY: ")
+    busca_filtro = input("""\033[91m
     [1] Verificação de Datas de Login geral
     [2] Verificação de Datas de Login por usuário
     [3] Verificação de Senhas
@@ -25,17 +28,17 @@ def buscaData():
     Digite o número da busca a ser filtrada: \033[0m""")
 
     os.system('color a')
-    with open('historico.txt', 'r') as arquivo:
+    with open(RECORD, 'r') as arquivo:
         linhas = arquivo.readlines()
 
     res = []
 
     for linha in linhas:
         info = linha.strip().split(', ')
-        dataLog = info[0]
-        buscaLog = info[2]
+        data_log = info[0]
+        busca_log = info[2]
 
-        if dataLog == dataFiltro and buscaFiltro in buscaLog: #verifica se a data é valida e se a busca também é
+        if data_log == data_filtro and busca_filtro in busca_log: # Verifica se a data é valida e se a busca também é
             res.append(linha)
             print(linha)
 
