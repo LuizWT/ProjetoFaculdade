@@ -14,7 +14,8 @@ def historico(logMsg, resultado=None):
 def fazerBackup():
     data = datetime.datetime.now().strftime("%d_%m_%Y")
     pasta = "pastaBackup"
-
+    if not os.path.exists(pasta):
+        os.makedirs(pasta)
     shutil.copyfile('log.txt', os.path.join(pasta, f"{data}_log.txt"))
     shutil.copyfile('historico.txt', os.path.join(pasta, f"{data}_historico.txt"))
     
