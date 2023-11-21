@@ -17,10 +17,10 @@ def logo():
     888      .d88888b.   .d8888b.  
     888     d88P" "Y88b d88P  Y88b  Feito por:
     888     888     888 888    888  Luiz Felipe
-    888     888     888 888         Matheus Caíque
-    888     888     888 888  88888  Gabriel Luís
-    888     888     888 888    888  André de Souza
-    888     Y88b. .d88P Y88b  d88P  Adriana Oliveira
+    888     888     888 888         
+    888     888     888 888  88888 
+    888     888     888 888    888 
+    888     Y88b. .d88P Y88b  d88P
     88888888 "Y88888P"   "Y8888P8 
 
     [1] Verificação de Datas de Login geral
