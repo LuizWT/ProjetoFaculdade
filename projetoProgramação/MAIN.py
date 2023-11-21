@@ -34,12 +34,20 @@ def logo():
     [6] Verificação de quantos usuários estão ativos
     [7] Filtrar busca por data
     [8] Realização de backup
-    [9] Apagar o terminal """)
+    [9] Limpar Terminal """)
 
 def mensagem_com_delay(delay, msg):
     print(f'\n{msg}...\n')
     time.sleep(delay)
 
+def limpar_tela():
+    sys = platform.system().lower()
+    if "linux" in sys or "darwin" in sys:
+        os.system('clear')
+    else:
+        os.system('cls')
+
+limpar_tela()
 logo()
 while True:
 
@@ -93,12 +101,8 @@ while True:
         historico("[7] Realizacão de Backup", True)
 
     elif esc == 9:
-        sys = platform.system().lower()
-        if "linux" in sys or "darwin" in sys:
-            os.system('clear')
-        else:
-            os.system('cls')
-        historico("[9] Terminal Apagado", True)
+        limpar_tela()
+        historico("[9] Terminal Limpo", True)
         logo()
 
     elif esc not in escolhas_validas:
