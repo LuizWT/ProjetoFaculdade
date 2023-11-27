@@ -93,12 +93,12 @@ while True:
     elif esc == 7:
         mensagem_com_delay(0.5, "Filtrando")
         result = busca_data()
-        historico("[8] Filtrar busca por data", result)
+        historico("[7] Filtrar busca por data", result)
 
     elif esc == 8:
         mensagem_com_delay(1, "Realizando Backup")
         result = fazer_backup()
-        historico("[7] Realizacão de Backup", True)
+        historico("[8] Realizacão de Backup", True)
 
     elif esc == 9:
         limpar_tela()
